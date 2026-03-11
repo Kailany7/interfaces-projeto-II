@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import agendamentoRoutes from "./routes/agendamentoRoutes.js";
+import servicosRoutes from "./routes/servicosRoutes.js";
 
 const app = express();
 
@@ -12,5 +13,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/agendamento", agendamentoRoutes);
+app.use("/servicos", servicosRoutes);
 
 export default app;
