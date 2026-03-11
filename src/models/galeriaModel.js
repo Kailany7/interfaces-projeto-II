@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const galeriaSchema = new mongoose.Schema(
   {
+    titulo: {
+      type: String,
+      required: true
+    },
+
     imagemUrl: {
       type: String,
       required: true
