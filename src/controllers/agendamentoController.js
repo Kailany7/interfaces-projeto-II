@@ -5,7 +5,7 @@ import Servico from '../models/servicoModel.js';
 
 const criarAgendamento = async (req, res) => {
   try {
-    let { cliente, funcionario, servico, data, status } = req.body;
+    const { cliente, funcionario, servico, data, status } = req.body;
 
     const agendamento = await Agendamento.create({ cliente, funcionario, servico, data, status });
     res.status(201).json({
@@ -84,7 +84,10 @@ const atualizarAgendamento = async (req, res) => {
       id,
       { cliente, funcionario, servico, data, status },
       { new: true } //retorna o documento atualizado
-    );
+    )
+      .populate('cliente', 'nome')
+      .populate('funcionario', 'nome')
+      .populate('servico', 'nome');
 
     if (!agendamento) {
       return res.status(404).json({
