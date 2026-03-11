@@ -1,10 +1,5 @@
-import dotenv from "dotenv";
+PORT = 3000
 
-dotenv.config();
-
-export const env = {
-  PORT: process.env.PORT || 3000,
-  MONGO_URI: process.env.MONGO_URI,
-  JWT_SECRET: process.env.JWT_SECRET,
-  JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "1d"
-};
+MONGO_URL = mongodb+srv://interfaces_db_user:hEMxrGHFbF1QJPAO@projeto-interfaces.bz3kv06.mongodb.net/nails-designer?retryWrites=true&w=majority&appName=projeto-interfaces
+JWT_SECRET = super_secret_key
+JWT_EXPIRES_IN = 1d
