@@ -132,7 +132,43 @@ const deletarAgendamento = async (req, res) => {
 
 }
 
+// listar apenas os agendamento do dia atual 
+
+const listarAgendamentoDoDia = async (req, res) => {
+  try {
+    const hoje = new Date();
+
+    //cria um cópia da data atual e ajusta para o início do dia ou para o fim do dia
+    const inicioDoDia = new Date(hoje);
+    inicioDoDia.setHours(0, 0, 0, 0);
+
+    const fimDoDia = new Date(hoje);
+    fimDoDia.setHours(23, 59, 59, 999);
+
+    const agendamentosDoDia = await Agendamento.find({
+      data: { $gte: inicioDoDia, $lte: fimDoDia }
+    })
+      .populate('cliente', 'nome')
+      .populate('funcionario', 'nome')
+      .populate('servico', 'nome')
+      .sort({ data: 1 }); //ordena por horario crescente
+
+    res.status(200).json({
+      sucesso: true,
+      data: hoje.toLocaleDateString('pt-BR'), 
+      total: agendamentosDoDia.length,
+      dados: agendamentosDoDia,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      sucesso: false,
+      mensagem: error.message,
+    });
+  }
+}
 
 
 
-export { criarAgendamento, listarAgendamentos, buscarAgendamento, atualizarAgendamento, deletarAgendamento};
+
+export { criarAgendamento, listarAgendamentos, buscarAgendamento, atualizarAgendamento, deletarAgendamento, listarAgendamentoDoDia };
