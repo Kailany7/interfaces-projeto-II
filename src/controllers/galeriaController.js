@@ -1,4 +1,4 @@
-import Galeria from '../models/Galeria.js';
+import Galeria from '../models/galeriaModel.js';
 
 class GaleriaController {
     async cadastrar(req, res) {
@@ -27,4 +27,27 @@ class GaleriaController {
         const imagens = await Galeria.find();
         return res.json(imagens);
     }
+
+    async delete(req, res) {
+        try {
+            const { id } = req.params;
+
+            const imagemDeletada = await Galeria.findByIdAndDelete(id);
+
+            if (!imagemDeletada) {
+                return res.status(404).json({ error: "Imagem não encontrada." });
+            }
+
+            return res.json({ message: "Imagem removida com sucesso da galeria!" });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ error: "Erro ao deletar imagem." });
+        }
+    }
+
+    async update(req, res) {
+        return res.json({ message: "Rota update em construção" });
+    }
 }
+
+export default new GaleriaController();
