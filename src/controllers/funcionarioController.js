@@ -1,5 +1,6 @@
 import Funcionario from "../models/funcionarioModel.js";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 // criar funcionário
 export const criarFuncionario = async (req, res) => {
@@ -60,6 +61,12 @@ export const buscarFuncionario = async (req, res) => {
 
     try {
 
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({
+                mensagem: "ID inválido"
+            });
+        }
+
         const funcionario = await Funcionario.findById(req.params.id).select("-senha");
 
         if (!funcionario) {
@@ -81,11 +88,23 @@ export const atualizarFuncionario = async (req, res) => {
 
     try {
 
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({
+                mensagem: "ID inválido"
+            });
+        }
+
         const funcionario = await Funcionario.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true }
         );
+
+        if (!funcionario) {
+            return res.status(404).json({
+                mensagem: "Funcionário não encontrado"
+            });
+        }
 
         res.json(funcionario);
 
@@ -101,6 +120,12 @@ export const atualizarFuncionario = async (req, res) => {
 export const deletarFuncionario = async (req, res) => {
 
     try {
+
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({
+                mensagem: "ID inválido"
+            });
+        }
 
         const funcionario = await Funcionario.findByIdAndDelete(req.params.id);
 
@@ -123,3 +148,4 @@ export const deletarFuncionario = async (req, res) => {
     }
 
 };
+
