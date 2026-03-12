@@ -16,6 +16,15 @@ const funcionarioSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true
+    },
+    senha: {
+      type: String,
+      required: true
+    },
+    role: {
+      type: String,
+      enum: ["admin", "funcionario"],
+      default: "funcionario"
     }
   },
   { timestamps: true }
