@@ -4,19 +4,24 @@ const clienteSchema = new mongoose.Schema(
   {
     nome: {
       type: String,
-      required: true
-    },
-    telefone: {
-      type: String,
-      required: true
+      required: [true, "Nome é obrigatório"],
+      trim: true,
     },
     email: {
       type: String,
-      required: true,
-      unique: true
-    }
+      required: [true, "Email é obrigatório"],
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    telefone: {
+      type: String,
+      trim: true,
+    },
   },
-  { timestamps: true }
+  {
+    timestamps: { createdAt: "criadoEm", updatedAt: "atualizadoEm" },
+  },
 );
 
 export default mongoose.model("Cliente", clienteSchema);

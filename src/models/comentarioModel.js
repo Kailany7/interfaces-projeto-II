@@ -5,21 +5,28 @@ const comentarioSchema = new mongoose.Schema(
     cliente: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Cliente",
-      required: true
+      required: [true, "Cliente é obrigatório"],
     },
-
+    servico: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Servico",
+    },
     comentario: {
       type: String,
-      required: true
+      required: [true, "Texto do comentário é obrigatório"],
+      trim: true,
+      maxlength: [500, "Comentário deve ter no máximo 500 caracteres"],
     },
-
     avaliacao: {
       type: Number,
+      required: [true, "Avaliação é obrigatória"],
       min: 1,
-      max: 5
-    }
+      max: 5,
+    },
   },
-  { timestamps: true }
+  {
+    timestamps: { createdAt: "criadoEm", updatedAt: "atualizadoEm" },
+  },
 );
 
 export default mongoose.model("Comentario", comentarioSchema);
