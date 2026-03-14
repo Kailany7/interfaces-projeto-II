@@ -7,6 +7,7 @@ import authRoutes from "./routes/authRoutes.js";
 import funcionarioRoutes from "./routes/funcionarioRoutes.js";
 import clienteRoutes from "./routes/clienteRoutes.js";
 import comentarioRoutes from "./routes/comentarioRoutes.js";
+import perfilClienteRoutes from "./routes/perfilClienteRoutes.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use("/auth", authRoutes);
 app.use("/funcionarios", funcionarioRoutes);
 app.use("/clientes", clienteRoutes);
 app.use("/comentarios", comentarioRoutes);
+app.use("/perfil", perfilClienteRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend Nails Design is running");

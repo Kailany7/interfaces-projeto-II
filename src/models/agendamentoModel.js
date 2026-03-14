@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const agendamentoSchema = new mongoose.Schema(
   {
+    // RELACIONAMENTO 1 - N COM CLIENTE, FUNCIONÁRIO E SERVIÇO
     cliente: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Cliente",

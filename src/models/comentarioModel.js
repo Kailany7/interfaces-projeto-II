@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const comentarioSchema = new mongoose.Schema(
   {
+    // RELACIONAMENTO 1 - N COM CLIENTE E SERVIÇO
     cliente: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Cliente",

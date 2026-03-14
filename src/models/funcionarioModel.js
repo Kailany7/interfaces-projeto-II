@@ -25,7 +25,14 @@ const funcionarioSchema = new mongoose.Schema(
       type: String,
       enum: ["admin", "funcionario"],
       default: "funcionario"
-    }
+    },
+    // RELACIONAMENTO N - N COM SERVIÇO
+    servicos: [
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Servico"
+  }
+]
   },
   { timestamps: true }
 );
