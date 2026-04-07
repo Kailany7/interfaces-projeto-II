@@ -1,8 +1,8 @@
 import express from "express";
 import {
-  listarComentarios,
-  criarComentario,
-  deletarComentario,
+    criarComentario,
+    listarComentarios,
+    deletarComentario
 } from "../controllers/comentarioController.js";
 import { verificarToken } from "../middlewares/authMiddleware.js";
 
