@@ -47,11 +47,43 @@ function AgendamentoList() {
   }
 
   async function handleSalvar() {
-    await criarAgendamento(form)
-    setModalAberto(false)
-    setForm({ cliente: '', funcionario: '', servico: '', data: '', status: 'agendado' })
-    carregarAgendamentos()
+  try {
+    if (!form.cliente || !form.funcionario || !form.servico || !form.data) {
+      alert('Preencha todos os campos');
+      return;
+    }
+
+    const payload = {
+      cliente: form.cliente,
+      funcionario: form.funcionario,
+      servico: form.servico,
+      data: new Date(form.data).toISOString(), 
+      status: 'agendado'
+    };
+
+    console.log('ENVIANDO:', payload);
+
+    const res = await criarAgendamento(payload);
+
+    console.log('RESPOSTA:', res);
+
+    setModalAberto(false);
+
+    setForm({
+      cliente: '',
+      funcionario: '',
+      servico: '',
+      data: '',
+      status: 'agendado'
+    });
+
+    await carregarAgendamentos();
+
+  } catch (err) {
+    console.error('ERRO AO SALVAR:', err);
+    alert('Erro ao salvar agendamento');
   }
+}
 
   const agendamentosFiltrados = agendamentos
     .filter(a => filtro === 'todos' || a.status === filtro)

@@ -11,8 +11,16 @@ export async function criarAgendamento(dados) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(dados)
-  })
-  return res.json()
+  });
+
+  const json = await res.json();
+
+  if (!res.ok) {
+    console.error('ERRO BACKEND:', json);
+    throw new Error(json.mensagem || 'Erro ao criar agendamento');
+  }
+
+  return json;
 }
 
 export async function atualizarAgendamento(id, dados) {
