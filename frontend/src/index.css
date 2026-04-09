@@ -11,6 +11,8 @@ body {
 }
 
 #root {
-  display: flex;
   min-height: 100vh;
+}
+html, body {
+  overflow-x: hidden;
 }

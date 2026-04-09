@@ -11,26 +11,16 @@ function AppRoutes() {
       <Route path="/" element={<Login />} />
 
       <Route
-        path="/admin/agendamentos"
+        path="/admin"
         element={
           <PrivateRoute>
-            <AdminLayout>
-              <AgendamentoList />
-            </AdminLayout>
+            <AdminLayout />
           </PrivateRoute>
         }
-      />
-
-      <Route
-        path="/admin/clientes"
-        element={
-          <PrivateRoute>
-            <AdminLayout>
-              <ClienteList />
-            </AdminLayout>
-          </PrivateRoute>
-        }
-      />
+      >
+        <Route path="agendamentos" element={<AgendamentoList />} />
+        <Route path="clientes" element={<ClienteList />} />
+      </Route>
     </Routes>
   );
 }
