@@ -22,7 +22,12 @@ function ClienteList() {
   const [erro, setErro] = useState(null);
   const [modalAberto, setModalAberto] = useState(false);
   const [editando, setEditando] = useState(null);
-  const [form, setForm] = useState({ nome: "", email: "", telefone: "" });
+  const [form, setForm] = useState({
+    nome: "",
+    email: "",
+    telefone: "",
+    totalVisitas: 0,
+  });
   const [salvando, setSalvando] = useState(false);
 
   useEffect(() => {
@@ -58,7 +63,7 @@ function ClienteList() {
 
   function abrirNovo() {
     setEditando(null);
-    setForm({ nome: "", email: "", telefone: "" });
+    setForm({ nome: "", email: "", telefone: "", totalVisitas: 0 });
     setModalAberto(true);
   }
 
@@ -101,10 +106,11 @@ function ClienteList() {
   const novos = clientes.filter(
     (c) => new Date(c.criadoEm) > umMesAtras,
   ).length;
-  const vips = clientes.filter(
-    (_, i) => getStatus((i + 1) * 4) === "VIP",
-  ).length;
-  const retorno = total > 0 ? Math.round(((total - novos) / total) * 100) : 0;
+  const vips = 0;
+  const retorno =
+    total > 0 && novos < total
+      ? Math.round(((total - novos) / total) * 100)
+      : 0;
 
   return (
     <div className={styles.page}>
@@ -177,7 +183,7 @@ function ClienteList() {
             </thead>
             <tbody>
               {clientes.map((c, i) => {
-                const visitas = (i + 1) * 4;
+                const visitas = c.totalVisitas || 0;
                 const status = getStatus(visitas);
                 const ultimaVisita = new Date(c.atualizadoEm || c.criadoEm);
                 return (
@@ -207,6 +213,7 @@ function ClienteList() {
                             nome: c.nome,
                             email: c.email,
                             telefone: c.telefone || "",
+                            totalVisitas: Number(c.totalVisitas) || 0,
                           });
                           setModalAberto(true);
                         }}
@@ -250,6 +257,15 @@ function ClienteList() {
                 value={form.telefone}
                 onChange={(e) => setForm({ ...form, telefone: e.target.value })}
                 placeholder="(83) 99999-9999"
+              />
+              <label>Total de Visitas</label>
+              <input
+                type="number"
+                min="0"
+                value={form.totalVisitas !== undefined ? form.totalVisitas : 0}
+                onChange={(e) =>
+                  setForm({ ...form, totalVisitas: Number(e.target.value) })
+                }
               />
             </div>
             <div className={styles.modalFooter}>
