@@ -182,7 +182,7 @@ function ClienteList() {
               </tr>
             </thead>
             <tbody>
-              {clientes.map((c, i) => {
+              {clientes.map((c) => {
                 const visitas = c.totalVisitas || 0;
                 const status = getStatus(visitas);
                 const ultimaVisita = new Date(c.atualizadoEm || c.criadoEm);
