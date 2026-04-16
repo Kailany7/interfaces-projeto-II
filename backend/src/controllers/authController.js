@@ -40,7 +40,7 @@ export const login = async (req, res) => {
         });
 
     } catch (error) {
-
+        console.error("Erro no login:", error);
         res.status(500).json({
             erro: error.message
         });
