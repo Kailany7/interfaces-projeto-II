@@ -4,6 +4,8 @@ import galeriaService from "../../services/galeriaService";
 import ModalAddImagem from "./ModalAddImagem";
 import "./Galeria.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "https://interfaces-projeto-ii.onrender.com";
+
 const GaleriaList = () => {
   const [fotos, setFotos] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -96,7 +98,7 @@ const GaleriaList = () => {
           fotosFiltradas.map((foto) => (
             <div key={foto._id} className="galeria-card">
               <img
-                src={`http://localhost:3000/uploads/${foto.imagemUrl}`}
+                src={`${API_URL}/uploads/${foto.imagemUrl}`}
                 alt={foto.titulo}
               />
               <div className="card-actions">

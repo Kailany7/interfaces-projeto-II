@@ -3,6 +3,8 @@ import galeriaService from "../../services/galeriaService";
 import { X, Upload } from "lucide-react";
 import "./Modal.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "https://interfaces-projeto-ii.onrender.com";
+
 const ModalAddImagem = ({ onClose, onSuccess, fotoExistente }) => {
   const [file, setFile] = useState(null);
   const [titulo, setTitulo] = useState("");
@@ -16,7 +18,7 @@ const ModalAddImagem = ({ onClose, onSuccess, fotoExistente }) => {
       setDescricao(fotoExistente.descricao || "");
 
       if (fotoExistente.imagemUrl) {
-        setPreview(`http://localhost:3000/uploads/${fotoExistente.imagemUrl}`);
+        setPreview(`${API_URL}/uploads/${fotoExistente.imagemUrl}`);
       }
     }
   }, [fotoExistente]);
